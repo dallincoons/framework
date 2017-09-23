@@ -180,7 +180,9 @@ class EloquentFactoryBuilderTest extends TestCase
         $this->assertTrue($user->is($dbUser));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function making_models_with_a_custom_connection()
     {
         $user = factory(FactoryBuildableUser::class)
@@ -188,6 +190,16 @@ class EloquentFactoryBuilderTest extends TestCase
             ->make();
 
         $this->assertEquals('alternative-connection', $user->getConnectionName());
+    }
+
+    /**
+     * @test
+     */
+    public function creating_model_returns_fresh_instance()
+    {
+        $user = factory(FactoryBuildableUser::class)->create();
+
+        $this->assertEquals(1, $user->field_with_default);
     }
 }
 
